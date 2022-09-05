@@ -194,11 +194,16 @@ import { BasicNFT } from "../../typechain-types"
                       value: offerPrice,
                   })
 
+                  // check if nft has a new owner
+                  const newOwner = await basicNFT.ownerOf(nft1TokenId)
+                  expect(newOwner).equals(signer2.address, "New owner should be signer 2")
+
                   const [nftOwnerOnMarketplace, price] = await nftMarketPlace.getListing(
                       basicNFT.address,
                       nft1TokenId
                   )
 
+                  // check also if ownership is reset inside marketplace contract
                   expect(price).equals(0, "Price of sold NFT on marketplace should be 0")
                   expect(nftOwnerOnMarketplace).equals(
                       "0x0000000000000000000000000000000000000000",
