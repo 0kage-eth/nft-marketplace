@@ -209,13 +209,15 @@ contract NFTMarketPlace {
             revert NFTMarketPlace__ZeroBalance();
         }
 
+        s_proceeds[msg.sender] = 0;
+
         (bool success, ) = payable(msg.sender).call{value: balance}("");
 
         if (!success) {
             revert NFTMarketPlace__TransferFailed(msg.sender, balance);
         }
 
-        emit WithdrawBalance(msg.sender, s_proceeds[msg.sender]);
+        emit WithdrawBalance(msg.sender, balance);
     }
 
     /**

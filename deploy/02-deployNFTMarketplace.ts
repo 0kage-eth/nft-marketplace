@@ -1,5 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { developmentChains, networkConfig } from "../helper-hardhat-config"
+import { verify } from "../utils/verify"
 
 const deployNFTMarketplace = async (hre: HardhatRuntimeEnvironment) => {
     const { ethers, getNamedAccounts, deployments, network } = hre
@@ -21,6 +22,13 @@ const deployNFTMarketplace = async (hre: HardhatRuntimeEnvironment) => {
         log(
             `NFT marketplace deployed at ${deployTx.address}. Txn hash is ${deployTx.transactionHash}`
         )
+
+        //verify contract if not local chain
+        if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+            await verify(deployTx.address, [])
+        }
+
+        log("-------------------")
     } else {
         log("Unknown chain. Exiting deployments...")
     }
