@@ -1,7 +1,8 @@
 import { network, ethers, getNamedAccounts } from "hardhat"
+import { developmentChains } from "../helper-hardhat-config"
 import { BasicNFT } from "../typechain-types"
 import { NFTMarketPlace } from "../typechain-types"
-
+import { moveBlocks, sleep } from "../utils/moveBlocks"
 /**
  * @dev script to mint NFT and list it on marketplace
  */
@@ -34,6 +35,13 @@ const mintAndList = async () => {
     const nftListingReceipt = await nftListTx.wait(1)
 
     console.log(`NFT Listed successfuly. Txn hash ${nftListingReceipt.transactionHash}`)
+
+    // move blocks if local chain
+    // this is necessary for moralis to correctly capture events when we are
+    // testing on our local machine
+    if (developmentChains.includes(network.name)) {
+        await moveBlocks(1, 1000)
+    }
 }
 
 mintAndList()
