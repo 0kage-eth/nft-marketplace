@@ -29,7 +29,7 @@ const mintAndList = async () => {
     const nftListTx = await nftMarketplaceContract.listNFT(
         basicNFTContract.address,
         tokenId,
-        ethers.utils.parseEther("1.0")
+        ethers.utils.parseEther("0.5")
     )
 
     const nftListingReceipt = await nftListTx.wait(1)
@@ -40,7 +40,7 @@ const mintAndList = async () => {
     // this is necessary for moralis to correctly capture events when we are
     // testing on our local machine
     if (developmentChains.includes(network.name)) {
-        await moveBlocks(1, 1000)
+        await moveBlocks(1, 2000)
     }
 }
 
