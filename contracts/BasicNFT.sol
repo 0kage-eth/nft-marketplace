@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "hardhat/console.sol";
 
 /**
  * @dev BasicNFT contract mints a simple NFT
@@ -34,7 +35,9 @@ contract BasicNFT is ERC721 {
         return s_tokenId;
     }
 
-    function tokenURI(uint256) public pure override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        console.log("tokenId inside token URI is %s", tokenId);
+        require(tokenId >= 0, "Invalid token ID");
         return TOKEN_URI;
     }
 }
