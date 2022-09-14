@@ -9,6 +9,7 @@ import { moveBlocks, sleep } from "../utils/moveBlocks"
 const mintAndList = async () => {
     const { deployer } = await getNamedAccounts()
 
+    console.log("deployer address", deployer)
     // mint basic nft
     const basicNFTContract: BasicNFT = await ethers.getContract("BasicNFT", deployer)
 
@@ -33,7 +34,9 @@ const mintAndList = async () => {
     )
 
     const nftListingReceipt = await nftListTx.wait(1)
-
+    console.log(nftListingReceipt.events![0])
+    const nftLister = nftListingReceipt.events![0].args![0]
+    console.log("nft listed by:", nftLister)
     console.log(`NFT Listed successfuly. Txn hash ${nftListingReceipt.transactionHash}`)
 
     // move blocks if local chain

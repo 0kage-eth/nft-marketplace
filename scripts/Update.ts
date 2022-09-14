@@ -3,7 +3,7 @@ import { developmentChains } from "../helper-hardhat-config"
 import { BasicNFT, NFTMarketPlace } from "../typechain-types"
 import { moveBlocks } from "../utils/moveBlocks"
 
-const TOKEN_ID = 31
+const TOKEN_ID = 4
 const PRICE = "0.2"
 
 const updateNFT = async (tokenId: any, revisedPrice: any) => {
