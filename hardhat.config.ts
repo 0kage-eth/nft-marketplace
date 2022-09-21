@@ -18,7 +18,7 @@ const RINKEBY_RPC_URL =
     "https://eth-rinkeby.alchemyapi.io/v2/7GqOn2J6cQ9yN-tLeSrB3eKweLhdCYWP"
 const GOERLI_RPC_URL =
     process.env.GOERLI_RPC_URL ||
-    "https://eth-goerli.g.alchemy.com/v2/XhPsDYWBB-PKbJ7lxHkQdorcw0MNN_W6"
+    "https://eth-goerli.g.alchemy.com/v2/dQntebXGpHJbryB4EfeBHSx4FB9q8Dt_"
 const POLYGON_MAINNET_RPC_URL =
     process.env.POLYGON_MAINNET_RPC_URL ||
     "https://polygon-mainnet.g.alchemy.com/v2/Y5OiOarO4GBHWfYKFKKudiayPQfOkuoi"
@@ -56,6 +56,7 @@ const config: HardhatUserConfig = {
             // },
             saveDeployments: true,
             chainId: 5,
+            gas: 6000000,
         },
         rinkeby: {
             url: RINKEBY_RPC_URL,

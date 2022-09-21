@@ -10,7 +10,7 @@ const mintNFT = async () => {
 
     const tx = await basicNFTContract.mint()
     const txReceipt = await tx.wait(1)
-    const tokenId = txReceipt.events![1].args![1].toString()
+    const tokenId = txReceipt.events![1].args![1]
 
     console.log(`Token id minted: ${tokenId}`)
     console.log(`'NFT address: ${basicNFTContract.address}`)

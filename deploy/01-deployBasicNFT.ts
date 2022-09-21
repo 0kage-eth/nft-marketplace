@@ -1,5 +1,5 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types"
-import { developmentChains } from "../helper-hardhat-config"
+import { developmentChains, networkConfig } from "../helper-hardhat-config"
 import { verify } from "../utils/verify"
 
 const deployBasicNFT = async (hre: HardhatRuntimeEnvironment) => {
@@ -8,7 +8,13 @@ const deployBasicNFT = async (hre: HardhatRuntimeEnvironment) => {
     const { log, deploy } = deployments
     const { deployer } = await getNamedAccounts()
     const args = ["0Kage", "0k"]
-    const tx = await deploy("BasicNFT", { from: deployer, args: args, log: true })
+    const chainId = network.config.chainId || 31337
+    const tx = await deploy("BasicNFT", {
+        from: deployer,
+        args: args,
+        log: true,
+        waitConfirmations: networkConfig[chainId].blockConfirmations,
+    })
 
     console.log(
         `Basic NFT contract deployed, tx has: ${tx.transactionHash}, address is ${tx.address}`

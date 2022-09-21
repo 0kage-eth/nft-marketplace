@@ -26,7 +26,9 @@ const mintAndList = async () => {
     )
 
     // approve use of nft token by marketplace
-    await basicNFTContract.approve(nftMarketplaceContract.address, tokenId)
+    const txResponse = await basicNFTContract.approve(nftMarketplaceContract.address, tokenId)
+    console.log("nft listing approved!")
+    await txResponse.wait(1)
     const nftListTx = await nftMarketplaceContract.listNFT(
         basicNFTContract.address,
         tokenId,
@@ -34,7 +36,6 @@ const mintAndList = async () => {
     )
 
     const nftListingReceipt = await nftListTx.wait(1)
-    console.log(nftListingReceipt.events![0])
     const nftLister = nftListingReceipt.events![0].args![0]
     console.log("nft listed by:", nftLister)
     console.log(`NFT Listed successfuly. Txn hash ${nftListingReceipt.transactionHash}`)
